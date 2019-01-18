@@ -1,0 +1,222 @@
+body {
+	margin-bottom: 100px;
+}
+
+td, th {
+	font-size: 12px;
+}
+
+
+header {
+	background: #563B7E;
+	padding: 10px;
+}
+
+footer {
+	background: #563B7E;
+	/*background: green;*/
+	height: 50px;
+	color: gray;
+}
+
+footer p {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: white;
+	/*color: white;*/
+	font-size: 14px;
+	text-align: center;
+}
+
+h4, h6 {
+	color: white;
+	text-align: center;
+}
+
+/**/
+.table td {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.td-personero {
+	font-size: 16px;
+}
+
+.th-candidato {
+	font-size: 14px;
+}
+
+.badge-tamano {
+	padding: .8em;
+
+}
+
+.d-block {
+	height: 380px;
+}
+
+.mensaje_iniciar_sesion {
+	margin-top: 5em;
+}
+
+/* Div de mensajes en el carrusel*/
+.carousel-caption {
+	background: gray;
+}
+
+.franja_amarilla_header {
+	background: yellow;
+	height: 20px;
+}
+
+.centrar {
+	text-align: center;
+}
+
+.separar {
+	height: 20px;
+}
+
+.parrafo_sede {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 14px;
+}
+
+
+.imagenCard {
+	width: 190px;
+	height: 150px;
+}
+
+
+.tarjeton {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin-right: 25px;
+	margin-left: 25px;
+	margin-bottom: 25px;
+	border: 4px solid #9A8EB8;
+	border-radius: 10px;
+}
+
+.btnVotarPersonero {
+	background: #EAE8E8;
+	width: 120px;
+	height: 300px;
+	font-size: 36px;
+	font-weight: bold;
+	border-radius: 5px;
+	color: #70A0B2;
+}
+
+.btnVotarPersonero:hover {
+	background: #FAC40A;
+	color: white;
+}
+
+.yavoto {
+	background: #F2D758;
+}
+
+.sede {
+	padding: 10px;
+	width: 300px;
+	height: 150px;
+	border-radius: 20px;
+}
+
+.btn-votar {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	font-size: 14px;
+}
+
+#imagen_escudo {
+	width: 80px;
+	height: auto;
+}
+
+.seleccionSedes {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.formLogin {
+	background: #F4F5F5;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.divEntreGrados {
+	/*background: #E1E4E4;*/
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 2px;
+}
+
+.btnPreescolarPrimeroSegundo {
+	background: #b7e4df;
+	color: teal;
+}
+
+.btnTerceroCuartoQuinto {
+	background: #46B2A2;
+	color: white;
+}
+
+.grupoGrados {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;	
+}
+
+.select {
+	background: #91D7BC;
+	width: 150px;
+	margin-bottom: 10px;
+	margin-right: 15px;
+	margin-left: 15px;
+}
+
+.btnGrados {
+	width: 100px;
+}
+
+.botones_respuesta {
+	background: gray;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 20px;
+}
+
+.btnSexto {
+	background: #017067;
+	color: white;
+}
+
+.btnSeptimo {
+	background: #003934;
+	color: white;
+
+}
+
+.grados_8910 {
+	background: #4756A0;
+	color: white;
+}
+
+/* Imagen de pagina 'Consultar estudiantes' */
+.imagenEstudiante {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+.imagenEstudiante:hover {
+	width: 100px;
+	height: 100px;
+}

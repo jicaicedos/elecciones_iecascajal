@@ -1,0 +1,11 @@
+
+
+
+FALLAS
+- No registra correctamente la votacion de los cursos   GRADO 0, PRIMERO, SEGUNDO
+- NO BLOQUEA los votantes de los grados con 2 cursos.. SEXTO A-B, SEPTIMO A-B, OCTAVO A-B
+
+
+REPORTES
+- Falta campo de grupo para hacer el reporte BIEN.. y completo
+

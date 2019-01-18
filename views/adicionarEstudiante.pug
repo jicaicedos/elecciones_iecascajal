@@ -1,0 +1,45 @@
+extends ./layout.pug
+
+block contenido
+	ul(class="nav nav-tabs justify-content-center")
+		li(class="nav-item dropdown")
+			a(class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") Docentes
+			div(class="dropdown-menu")
+				a(class="dropdown-item" href="adicionarDocente") Adicionar
+				a(class="dropdown-item" href="consultarDocentes") Consultar
+				a(class="dropdown-item" href="modificarDocente") Modificar
+		li(class="nav-item dropdown")
+			a(class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") Estudiantes
+			div(class="dropdown-menu")
+				a(class="dropdown-item" href="adicionarEstudiante") Adicionar
+				a(class="dropdown-item" href="consultarEstudiantes") Consultar
+				a(class="dropdown-item" href="modificarEstudiante") Modificar
+		li(class="nav-item")
+			a(class="nav-link" href="/reporteVotacionTobo") Reportes
+		li(class="nav-item")
+			a(class="nav-link" href="/") Cerrar sesión
+	div(class="container")
+		div(class="col-sm-12")
+		h3 Adicionar nuevo estudiante
+	div(class="container")
+		form(action="/resultado" method="POST")
+			br
+			div(class="row")
+				div(class="col-sm-6")
+					label(for="nombreEstudiante") Nombre
+					input(type="text" id="nombreEstudiante" name="nombreEstudiante" placeholder="Javier" class="form-control")
+				div(class="col-sm-6")
+					label(for="apellidoEstudiante") Apellido
+					input(type="text" id="apellidoEstudiante" name="apellidoEstudiante" placeholder="Caicedo" class="form-control")
+				div(class="col-sm-6")
+					label(for="codigoEstudiante") Código
+					input(type="text" id="codigoEstudiante" name="codigoEstudiante" placeholder="1001" class="form-control")
+				div(class="col-sm-6")
+					label(for="direccionEstudiante") Dirección
+					input(type="text" id="direccionEstudiante" name="direccionEstudiante" placeholder="Calle 45 # 23 - 15" class="form-control")
+			label(for="fechaNacimientoEstudiante") Fecha de nacimiento
+			input(type="date" id="fechaNacimientoEstudiante" name="fechaNacimientoEstudiante" class="form-control")
+			label(for="fotoEstudiante") Foto
+			input(type="file" id="fotoEstudiante" name="fotoEstudiante" class="form-control")
+			br
+			input(type="submit" value="Adicionar" class="btn btn-primary")

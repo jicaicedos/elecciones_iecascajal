@@ -1,0 +1,8 @@
+# Ignora los archivos o módulos de Node
+/node_modules
+
+# Ignorar la documentación de la aplicación
+/docs
+
+# Ignorar instaladores de MongoDB para windows
+/instaladoresMongoDB

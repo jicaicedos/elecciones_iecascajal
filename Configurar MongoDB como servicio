@@ -1,0 +1,30 @@
+Configurar MongoDB como servicio
+
+Una vez que lo tengas instalado seguramente querrás tenerlo como servicio de windows, 
+esto lo hacemos creando un archivo en la raiz de mongo. en C:\MongoDB
+
+1) Crear el directorio log
+
+2) Crear el directorio data
+
+3) Crear el archivo mongod.cfg con el siguiente contenido:
+
+logpath=C:/Program Files/MongoDB/Server/3.2/bin/log/mongo.log
+dbpath=C:/Program Files/MongoDB/Server/3.2/bin/data
+
+- Luego abrimos la consola como administrador y ahí escribimos:
+
+"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --config  "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --install
+
+==== OJO:  c:/\"Program Files\"/MongoDB/Server/3.2/bin/mongod
+
+
+- Luego iniciamos el servicio para siempre
+
+net start MongoDB
+
+
+(((( -- otra opcion --))))
+https://stackoverflow.com/questions/4661670/cannot-start-mongodb-as-a-service
+
+"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --directoryperdb --dbpath "C:/Program Files\MongoDB\Server\3.2\bin\data" --logpath "C:/Program Files\MongoDB\Server\3.2\bin\log\mongo.log" --logappend --install

@@ -1,0 +1,68 @@
+USUARIOS:
+
+1083880333 - CARMEN ALEJANDRA MURCIA - 3° y 4°
+83231140   - JOSE ALIRIO VALDERRAMA - 3° y 4°
+
+22632790 - CARMEN CECILIA ALVAREZ - 5° y 6°-1       NO BLOQUEA pero SI muestra los candidatos del 6-1
+36274515 - LUZ MARY PARRA - 5° y 6°-1
+
+12232229 - JESÚS ANTONIO ORTIZ - 6°-2 Y 7º          NO BLOQUEA pero SI muestra los candidatos del 6-2
+12130633 - ROBERTO ARTURO BOTINA - 6°-2 Y 7º
+
+79685926 - CARLOS JAVIER LOSADA - 8°-1 Y 11º        NO BLOQUEA pero SI muestra los candidatos del 8-2
+1075221503 - ELIZABETH TENGONO ZAMORA - 8°-1 Y 11º  
+
+
+39695420 - NUBIA STELLA CASTIBLANCO - 8°-2 Y 9º     SI BLOQUEA (=OJO=) pero no muestra los candidatos de 8-2 (solo voto en blanco)
+36164540 - YUBANY SUAREZ PUYO - 8°-2 Y 9º
+
+93391630 - YERY IGNACIO BARRIOS SANCHEZ - 10°
+55183643 - ELIANA YAMILETH PAZ MONTAÑEZ - 10°
+
+
+=====================================================================================================
+db.votaciones.remove({})
+db.votantes.remove({})
+
+=====================================================================================================
+
+REPORTES
+
+- mostrar nombre de candidatos y tarjeton en el reporte de votaciones
+
+
+====================================================
+
+Datos de estudiantes
+Ejemplo:
+    est_anio: 2018,
+    est_secretaria: "TIMANÁ",
+    est_dane_ie: 241807000079,
+    est_nombre_ie: "IE CASCAJAL",
+    est_dane_sede: 24180700007901,
+    est_nombre_sede: "CASCAJAL",
+    est_jornada: "COMPLETA",
+    est_calendario: "A",
+    est_grado: "SEXTO",
+    est_sector: "OFICIAL",
+    est_grupo: 601,
+    est_modelo_educativo: "POST PRIMARIA",
+    est_tipo_identificacion: "TI",
+    est_doc: 1084330552,
+    est_primer_apellido: "CUELLAR",
+    est_segundo_apellido: "TROCHEZ",
+    est_primer_nombre: "VICTOR",
+    est_segundo_nombre: "MANUEL",
+    est_estado: "RETIRADO",
+    est_matricula_contratada: "N",
+    est_fuente_recursos: "SGP"
+
+SEDES:
+
+CASCAJAL - Institución Educativa Cascajal
+EL TOBO
+LA ESPERANZA
+LA FLORIDA
+LA PIRAGUA
+MATEO RICO
+PAQUIES
