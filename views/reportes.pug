@@ -23,7 +23,8 @@ block contenido
 										td(class="td-personero centrar")= reporte_personero._id.grupo
 										td(class="td-personero centrar")= reporte_personero._id.personero
 										td(class="td-personero centrar")= reporte_personero.cantidad
-
+			h5 Total votos por representantes: 
+				span= total_representantes
 			div(class="separar")
 			div(class="row")
 				div(class="col-sm-12")
@@ -44,3 +45,5 @@ block contenido
 											td(class="td-personero centrar")= reporte_representante._id.grupo
 											td(class="td-personero centrar")= reporte_representante._id.representante
 											td(class="td-personero centrar")= reporte_representante.cantidad
+			h5 Total votos por personeros: 
+				span= total_personeros

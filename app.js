@@ -16,6 +16,8 @@ var app = express()
 
 // Variables globales del sistema
 var nom_sede 				// Guarda el nombre de la sede
+var nombre_completo_personero // Guarda el nombre completo del personero
+var nombre_completo_representante	// Guarda el nombre completo del representante
 var num_grado_estudiante	// Guarda el grado del estudiante
 var num_grupo				// Guarda el grupo al que pertence el estudiante
 var num_id_estudiante		// Guarda el número de identificación del estudiante
@@ -138,7 +140,7 @@ app.get("/reportes", (req, res) => {
 		{ $sort: {vot_sede:1, vot_grupo:-1, vot_representante:-1} },
 		{ $group: { _id: {sede: "$vot_sede", grupo: "$vot_grupo", representante: "$vot_representante" }, cantidad: { $sum: 1 } } }
 	]).
-	exec( (error, docs) => { reporte_representantes = docs } )
+	exec( (error, docs) => { reporte_representantes = docs	} )
 
 	Votaciones.
 	aggregate([
@@ -147,8 +149,19 @@ app.get("/reportes", (req, res) => {
 	]).
 	exec( (error, docs) => {
 		reporte_personeros = docs
+
+		let total_personeros = 0
+		reporte_personeros.forEach(function(reporte_personero){
+			total_personeros+= reporte_personero.cantidad
+		})
+
+		let total_representantes = 0
+		reporte_representantes.forEach(function(reporte_representante){
+			total_representantes+= reporte_representante.cantidad
+		})
+
 		// docs = [{"_id":2,"cantidad":24},{"_id":1,"cantidad":11},{"_id":0,"cantidad":8}]
-		res.render("reportes", {reporte_personeros, reporte_representantes, nom_sede} )
+		res.render("reportes", {reporte_personeros, reporte_representantes, nom_sede, total_personeros, total_representantes } )
 		
 	})
 	
@@ -634,20 +647,22 @@ app.post("/personero", (req, res) => {
 	exec( (error, docs) => {
 		personeros = docs
 
+		// CODING: Obtener nombre completo de personero
 		Estudiante.
 		find({"est_doc":num_id_estudiante}).
-		select({est_grado:1, est_grupo:1}).
+		select({est_grado:1, est_grupo:1, est_primer_nombre:1, est_segundo_nombre:1, est_primer_apellido:1, est_segundo_apellido:1}).
 		exec( (error, docs) => {
+			nombre_completo_personero = docs[0].est_primer_nombre + " " + docs[0].est_segundo_apellido + " " + docs[0].est_primer_apellido + " " + docs[0].est_segundo_apellido
 			num_grado_estudiante = docs[0].est_grado
 			num_grupo = docs[0].est_grupo		
 			// Variable para determinar cuales grados tienen representante
 			let conRepresentante
 			if( num_grupo >= 299 ) {
 				conRepresentante = 1
-				res.render("personero", {personeros, num_id_estudiante, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("personero", {personeros, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
 			} else {
 				conRepresentante = 0
-				res.render("personero", {personeros, num_id_estudiante, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("personero", {personeros, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
 			}
 		})
 	})	
