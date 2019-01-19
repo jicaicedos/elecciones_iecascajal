@@ -627,6 +627,49 @@ app.post("/votarSedeMateoRico", (req, res) => {
 // ============================================================================
 // Votar por Personero
 // 
+app.post("/representanteComiteEstudiantil", (req, res) => {
+	num_id_estudiante = req.body.documentoIdentidadEstudiante
+	// Obtenemos los <<Representantes comite estudiantil>> desde la base de datos
+	Candidato.
+	find({"est_tipo_candidato":"representante_comite"}).
+	sort({est_num_tarjeton:1}).
+	select({
+		est_anio: 1, est_secretaria: 1, est_dane_ie: 1, est_nombre_ie: 1,	
+		est_dane_sede: 1, est_nombre_sede: 1, est_jornada: 1, est_calendario: 1,
+		est_grado: 1, est_sector: 1, est_grupo: 1, est_modelo_educativo: 1,
+		est_tipo_identificacion: 1, est_doc: 1, est_primer_apellido: 1,
+		est_segundo_apellido: 1, est_primer_nombre: 1, est_segundo_nombre: 1,
+		est_estado: 1, est_matricula_contratada: 1, est_fuente_recursos: 1,
+		est_tipo_candidato: 1, est_num_tarjeton: 1, est_foto: 1
+	}).
+	exec( (error, docs) => {
+		representantes_comite = docs
+
+		// CODING: Obtener nombre completo de personero
+		Estudiante.
+		find({"est_doc":num_id_estudiante}).
+		select({est_grado:1, est_grupo:1, est_primer_nombre:1, est_segundo_nombre:1, est_primer_apellido:1, est_segundo_apellido:1}).
+		exec( (error, docs) => {
+			nombre_completo_personero = docs[0].est_primer_nombre + " " + docs[0].est_segundo_apellido + " " + docs[0].est_primer_apellido + " " + docs[0].est_segundo_apellido
+			num_grado_estudiante = docs[0].est_grado
+			num_grupo = docs[0].est_grupo		
+			// Variable para determinar cuales grados tienen representante
+			let conRepresentante
+			if( num_grupo >= 299 ) {
+				conRepresentante = 1
+				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
+			} else {
+				conRepresentante = 0
+				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
+			}
+		})
+	})	
+})
+
+
+// ============================================================================
+// Votar por Personero
+// 
 app.post("/personero", (req, res) => {
 	// console.log("POST -> personero")
 	num_id_estudiante = req.body.documentoIdentidadEstudiante

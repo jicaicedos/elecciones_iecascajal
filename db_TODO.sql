@@ -14232,4 +14232,57 @@ db.candidatos.insert({
 	est_num_tarjeton: 2,
 	est_foto: "2 - Grado 11 - Ana Sofia Gutierrez Romero.jpg"
 });
+/*NUEVO: Representantes comite estudiantil*/
+ db.candidatos.insert({
+    est_anio: 2018,
+    est_secretaria: "TIMANÁ",
+    est_dane_ie: 241807000079,
+    est_nombre_ie: "IE CASCAJAL",
+    est_dane_sede: 24180700007901,
+    est_nombre_sede: "CASCAJAL",
+    est_jornada: "ÚNICA",
+    est_calendario: "A",
+    est_grado: "ONCE",
+    est_sector: "OFICIAL",
+    est_grupo: 1101,
+    est_modelo_educativo: "EDUCACIÓN TRADICIONAL",
+    est_tipo_identificacion: "TI",
+    est_doc: 1007163503,
+    est_primer_apellido: "HORTA",
+    est_segundo_apellido: "MEDINA",
+    est_primer_nombre: "ALEX",
+    est_segundo_nombre: "DAVIAN",
+    est_estado: "MATRICULADO",
+    est_matricula_contratada: "N",
+    est_fuente_recursos: "SGP",
+    est_tipo_candidato: "representante_comite",
+    est_num_tarjeton: 1,
+    est_foto: "1. representante_hombre.jpg"    
+ });
+ db.candidatos.insert({
+    est_anio: 2018,
+    est_secretaria: "TIMANÁ",
+    est_dane_ie: 241807000079,
+    est_nombre_ie: "IE CASCAJAL",
+    est_dane_sede: 24180700007901,
+    est_nombre_sede: "CASCAJAL",
+    est_jornada: "ÚNICA",
+    est_calendario: "A",
+    est_grado: "ONCE",
+    est_sector: "OFICIAL",
+    est_grupo: 1101,
+    est_modelo_educativo: "EDUCACIÓN TRADICIONAL",
+    est_tipo_identificacion: "TI",
+    est_doc: 99112309051,
+    est_primer_apellido: "JIMENEZ",
+    est_segundo_apellido: "REYES",
+    est_primer_nombre: "MARIA",
+    est_segundo_nombre: "CAMILA",
+    est_estado: "MATRICULADO",
+    est_matricula_contratada: "N",
+    est_fuente_recursos: "SGP",
+    est_tipo_candidato: "representante_comite",
+    est_num_tarjeton: 2,
+    est_foto: "2. representante_mujer.jpg"
+ });
 
