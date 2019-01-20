@@ -15,17 +15,23 @@ var Candidato  = require("./models/candidato").Candidato
 var app = express()
 
 // Variables globales del sistema
-var nom_sede 				// Guarda el nombre de la sede
-var nombre_completo_personero // Guarda el nombre completo del personero
+var nom_sede 					// Guarda el nombre de la sede
+var nombre_completo_personero 	// Guarda el nombre completo del personero
 var nombre_completo_representante	// Guarda el nombre completo del representante
-var num_grado_estudiante	// Guarda el grado del estudiante
-var num_grupo				// Guarda el grupo al que pertence el estudiante
-var num_id_estudiante		// Guarda el número de identificación del estudiante
-var num_personero			// Guarda el número del personero votado
-var num_representante		// Guarda el número del representante votado
+var num_grado_estudiante		// Guarda el grado del estudiante
+var num_grupo					// Guarda el grupo al que pertence el estudiante
+var num_id_estudiante			// Guarda el número de identificación del estudiante
+var num_representante_comite	// Guarda el número del representante del comité votado
+var nombre_representante_comite	// 
+var num_personero				// Guarda el número del personero votado
+var nombre_personero  			// 
+var num_representante			// Guarda el número del representante votado
+var nombre_representante 		// 
 
 var ruta_foto
+// var representantes_comite
 var personeros
+// var representantes
 var ids_estudiantes_ya_votaron = []
 var estudiantes = []
 var registros_a_bloquear = []
@@ -132,20 +138,20 @@ app.get("/", (req, res) => {
 })
 
 app.get("/reportes", (req, res) => {
-	var reporte_personeros
-	var reporte_representantes
+	let reporte_personeros
+	let reporte_representantes
 
 	Votaciones.
 	aggregate([
 		{ $sort: {vot_sede:1, vot_grupo:-1, vot_representante:-1} },
-		{ $group: { _id: {sede: "$vot_sede", grupo: "$vot_grupo", representante: "$vot_representante" }, cantidad: { $sum: 1 } } }
+		{ $group: { _id: {sede: "$vot_sede", grupo: "$vot_grupo", nombre_representante: "$vot_nombre_representante", representante: "$vot_representante" }, cantidad: { $sum: 1 } } }
 	]).
 	exec( (error, docs) => { reporte_representantes = docs	} )
 
 	Votaciones.
 	aggregate([
 		{ $sort: {vot_sede:1, vot_grupo:-1, vot_personero:-1} },
-		{ $group: {_id: {sede: "$vot_sede", grupo: "$vot_grupo", personero:"$vot_personero"}, "cantidad": {$sum:1} } }
+		{ $group: {_id: {sede: "$vot_sede", grupo: "$vot_grupo", nombre_personero: "$vot_nombre_personero", personero:"$vot_personero"}, "cantidad": {$sum:1} } }
 	]).
 	exec( (error, docs) => {
 		reporte_personeros = docs
@@ -645,22 +651,23 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 	exec( (error, docs) => {
 		representantes_comite = docs
 
-		// CODING: Obtener nombre completo de personero
 		Estudiante.
 		find({"est_doc":num_id_estudiante}).
-		select({est_grado:1, est_grupo:1, est_primer_nombre:1, est_segundo_nombre:1, est_primer_apellido:1, est_segundo_apellido:1}).
+		select({est_grado:1, est_grupo:1, 
+			est_primer_nombre:1, est_segundo_nombre:1, 
+			est_primer_apellido:1, est_segundo_apellido:1}
+		).
 		exec( (error, docs) => {
-			nombre_completo_personero = docs[0].est_primer_nombre + " " + docs[0].est_segundo_apellido + " " + docs[0].est_primer_apellido + " " + docs[0].est_segundo_apellido
 			num_grado_estudiante = docs[0].est_grado
 			num_grupo = docs[0].est_grupo		
 			// Variable para determinar cuales grados tienen representante
 			let conRepresentante
 			if( num_grupo >= 299 ) {
 				conRepresentante = 1
-				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_representante_comite, nom_sede, num_grado_estudiante, conRepresentante})
 			} else {
 				conRepresentante = 0
-				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_representante_comite, nom_sede, num_grado_estudiante, conRepresentante})
 			}
 		})
 	})	
@@ -672,7 +679,8 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 // 
 app.post("/personero", (req, res) => {
 	// console.log("POST -> personero")
-	num_id_estudiante = req.body.documentoIdentidadEstudiante
+	num_representante_comite = req.body.representante_comite
+	nombre_representante_comite = `${representantes_comite[num_representante_comite-1].est_primer_nombre} ${representantes_comite[num_representante_comite-1].est_segundo_nombre} ${representantes_comite[num_representante_comite-1].est_primer_apellido} ${representantes_comite[num_representante_comite-1].est_segundo_apellido}`
 
 	// Obtenemos los personeros desde la base de datos
 	Candidato.
@@ -695,17 +703,16 @@ app.post("/personero", (req, res) => {
 		find({"est_doc":num_id_estudiante}).
 		select({est_grado:1, est_grupo:1, est_primer_nombre:1, est_segundo_nombre:1, est_primer_apellido:1, est_segundo_apellido:1}).
 		exec( (error, docs) => {
-			nombre_completo_personero = docs[0].est_primer_nombre + " " + docs[0].est_segundo_apellido + " " + docs[0].est_primer_apellido + " " + docs[0].est_segundo_apellido
 			num_grado_estudiante = docs[0].est_grado
 			num_grupo = docs[0].est_grupo		
 			// Variable para determinar cuales grados tienen representante
 			let conRepresentante
 			if( num_grupo >= 299 ) {
 				conRepresentante = 1
-				res.render("personero", {personeros, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("personero", {personeros, num_id_estudiante, nombre_personero, nom_sede, num_grado_estudiante, conRepresentante})
 			} else {
 				conRepresentante = 0
-				res.render("personero", {personeros, num_id_estudiante, nombre_completo_personero, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("personero", {personeros, num_id_estudiante, nombre_personero, nom_sede, num_grado_estudiante, conRepresentante})
 			}
 		})
 	})	
@@ -717,6 +724,7 @@ app.post("/personero", (req, res) => {
 // 
 app.post("/representante", (req, res) => {
 	num_personero = req.body.personero
+	nombre_personero = `${personeros[num_personero-1].est_primer_nombre} ${personeros[num_personero-1].est_segundo_nombre} ${personeros[num_personero-1].est_primer_apellido} ${personeros[num_personero-1].est_segundo_apellido}`
 
 	// Obtenemos los representantes desde la base de datos
 	Candidato.
@@ -733,9 +741,9 @@ app.post("/representante", (req, res) => {
 	}).
 	exec( (error, docs) => {
 		representantes = docs
-		res.render("representante", {representantes, num_grado_estudiante, num_grupo})
+		// nombre_representante = `${docs[num_personero-1].est_primer_nombre} ${docs[num_personero-1].est_segundo_nombre} ${docs[num_personero-1].est_primer_apellido} ${docs[num_personero-1].est_segundo_apellido}`
+		res.render("representante", {representantes, nombre_representante, num_grado_estudiante, num_grupo})
 	})
-	// res.render("representante")
 })
 
 
@@ -771,31 +779,44 @@ function bloquearRegistros(estudiantes, estudiantes_ya_votaron) {
 	return regs_a_bloquear
 }
 
-
-
 // ============================================================================
 // Final de votación
 // 
 app.post("/finalProcesoVotacion", (req, res) => {
 	// console.log("POST -> finalProcesoVotacion")
-
-	if( nom_sede=="CASCAJAL"  ) { // y grado == "TALES"		
+	
+	// Se decide si el estudiante debe o no votar por "Representante por grado" y "Representante al Comité"
+	if( nom_sede=="CASCAJAL"  ) {
 		if( num_grupo < 300 ) {
+			num_representante_comite = -1
 			num_representante = -1
 		} else {
 			num_representante = req.body.representante
+			nombre_representante = `${representantes[num_representante-1].est_primer_nombre} ${representantes[num_representante-1].est_segundo_nombre} ${representantes[num_representante-1].est_primer_apellido} ${representantes[num_representante-1].est_segundo_apellido}`
 		}		
 	} else {
 		num_personero = req.body.personero
 		num_representante = -1
 	}
 
+	console.log(`Nombre representante comite: ${nombre_representante_comite} 
+		Numero rep comite: ${num_representante_comite}
+		Nombre personero: ${nombre_personero} 
+		Numero personero: ${num_personero}
+		Nombre representante: ${nombre_representante}
+		Numero representante: ${num_representante}`
+	)
+
 	var votaciones = new Votaciones({
 	    vot_sede: nom_sede,
 	    vot_grado: num_grado_estudiante,
 	    vot_grupo: num_grupo,
+	    vot_representante_comite: num_representante_comite,
+	    vot_nombre_rep_comite: nombre_representante_comite,
 	    vot_personero: num_personero,
+	    vot_nombre_personero: nombre_personero,
 	    vot_representante: num_representante,
+	    vot_nombre_representante: nombre_representante,
 	    vot_fecha: new Date()
 	});
 
@@ -806,10 +827,8 @@ app.post("/finalProcesoVotacion", (req, res) => {
 	    vot_fecha: new Date()
 	});
 
-	// console.log(votaciones)
-
 	// Guardar en la base de datos de VOTACIONES
-	votaciones.save().then( (est) => {	
+	votaciones.save().then( (est) => {
 		// console.log("Votación guardada correctamente!") 
 	}, (error) => { console.log("Error al escibir en la base de datos. Collection: votaciones") })
 
@@ -819,8 +838,6 @@ app.post("/finalProcesoVotacion", (req, res) => {
 	}, (error) => { res.send("Error al escibir en la base de datos. Collection: votantes") })
 
 })
-
-
 
 app.listen(8080)
 
