@@ -30,7 +30,7 @@ var nombre_representante 		//
 
 var ruta_foto
 // var representantes_comite
-var personeros
+// var personeros
 // var representantes
 var ids_estudiantes_ya_votaron = []
 var estudiantes = []
@@ -138,13 +138,31 @@ app.get("/", (req, res) => {
 })
 
 app.get("/reportes", (req, res) => {
+	let reporte_representantes_comite
 	let reporte_personeros
 	let reporte_representantes
 
 	Votaciones.
 	aggregate([
+		{ $sort: {vot_sede:1, vot_grupo:-1, vot_representante_comite:-1} },
+		{ $group: { _id: {sede: "$vot_sede", grupo: "$vot_grupo", nombre_representante_comite: "$vot_nombre_rep_comite", representante_comite: "$vot_representante_comite" }, cantidad: { $sum: 1 } } }
+	]).
+	exec( (error, docs) => { reporte_representantes_comite = docs	} )
+
+	Votaciones.
+	aggregate([
 		{ $sort: {vot_sede:1, vot_grupo:-1, vot_representante:-1} },
-		{ $group: { _id: {sede: "$vot_sede", grupo: "$vot_grupo", nombre_representante: "$vot_nombre_representante", representante: "$vot_representante" }, cantidad: { $sum: 1 } } }
+		{ $group: 
+			{ _id: 
+				{
+					sede: "$vot_sede", 
+					grupo: "$vot_grupo", 
+					nombre_representante: "$vot_nombre_representante", 
+					representante: "$vot_representante" 
+				}, 
+				cantidad: { $sum: 1 } 
+			} 
+		}
 	]).
 	exec( (error, docs) => { reporte_representantes = docs	} )
 
@@ -156,19 +174,27 @@ app.get("/reportes", (req, res) => {
 	exec( (error, docs) => {
 		reporte_personeros = docs
 
+		let total_representantes_comite = 0
+		reporte_representantes_comite.forEach(function(reporte_representantes_comite){
+			total_representantes_comite+= reporte_representantes_comite.cantidad
+		})
+
 		let total_personeros = 0
-		reporte_personeros.forEach(function(reporte_personero){
-			total_personeros+= reporte_personero.cantidad
+		reporte_personeros.forEach(function(reporte_personero){			
+			if (reporte_personero._id.personero != -1){
+				total_personeros+= reporte_personero.cantidad
+			}
 		})
 
 		let total_representantes = 0
-		reporte_representantes.forEach(function(reporte_representante){
-			total_representantes+= reporte_representante.cantidad
+		reporte_representantes.forEach(function(reporte_representante){			
+			if (reporte_representante._id.representante != -1){
+				total_representantes+= reporte_representante.cantidad
+			}
 		})
 
-		// docs = [{"_id":2,"cantidad":24},{"_id":1,"cantidad":11},{"_id":0,"cantidad":8}]
-		res.render("reportes", {reporte_personeros, reporte_representantes, nom_sede, total_personeros, total_representantes } )
-		
+		res.render("reportes", {reporte_representantes_comite, reporte_personeros, reporte_representantes, nom_sede, total_representantes_comite, total_personeros, total_representantes } )
+
 	})
 	
 })
@@ -419,8 +445,6 @@ app.get("/votarSedeElTobo", (req, res) => {
 })
 
 app.post("/votarSedeElTobo", (req, res) => {
-	// console.log("POST -> votar votarSedeElTobo" + req.body.gradosSedeElTobo)
-
 	nom_sede = "EL TOBO"
 	num_grado_estudiante = req.body.gradosSedeElTobo
 
@@ -493,8 +517,6 @@ app.get("/votarSedeLaPiragua", (req, res) => {
 })
 
 app.post("/votarSedeLaPiragua", (req, res) => {
-	// console.log("POST -> votar votarSedeLaPiragua" + req.body.gradosSedeLaPiragua)
-
 	nom_sede = "LA PIRAGUA"
 	num_grado_estudiante = req.body.gradosSedeLaPiragua
 
@@ -675,12 +697,18 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 
 
 // ============================================================================
+//
 // Votar por Personero
 // 
 app.post("/personero", (req, res) => {
 	// console.log("POST -> personero")
 	num_representante_comite = req.body.representante_comite
-	nombre_representante_comite = `${representantes_comite[num_representante_comite-1].est_primer_nombre} ${representantes_comite[num_representante_comite-1].est_segundo_nombre} ${representantes_comite[num_representante_comite-1].est_primer_apellido} ${representantes_comite[num_representante_comite-1].est_segundo_apellido}`
+
+	if( num_representante_comite == 0 ) {
+		nombre_representante_comite = "VOTO EN BLANCO"
+	} else {
+		nombre_representante_comite = `${representantes_comite[num_representante_comite-1].est_primer_nombre} ${representantes_comite[num_representante_comite-1].est_segundo_nombre} ${representantes_comite[num_representante_comite-1].est_primer_apellido} ${representantes_comite[num_representante_comite-1].est_segundo_apellido}`
+	}
 
 	// Obtenemos los personeros desde la base de datos
 	Candidato.
@@ -715,7 +743,7 @@ app.post("/personero", (req, res) => {
 				res.render("personero", {personeros, num_id_estudiante, nombre_personero, nom_sede, num_grado_estudiante, conRepresentante})
 			}
 		})
-	})	
+	})
 })
 
 
@@ -724,7 +752,11 @@ app.post("/personero", (req, res) => {
 // 
 app.post("/representante", (req, res) => {
 	num_personero = req.body.personero
-	nombre_personero = `${personeros[num_personero-1].est_primer_nombre} ${personeros[num_personero-1].est_segundo_nombre} ${personeros[num_personero-1].est_primer_apellido} ${personeros[num_personero-1].est_segundo_apellido}`
+	if( num_personero == 0 ) {
+		nombre_personero = "VOTO EN BLANCO"
+	} else {
+		nombre_personero = `${personeros[num_personero-1].est_primer_nombre} ${personeros[num_personero-1].est_segundo_nombre} ${personeros[num_personero-1].est_primer_apellido} ${personeros[num_personero-1].est_segundo_apellido}`
+	}
 
 	// Obtenemos los representantes desde la base de datos
 	Candidato.
@@ -783,29 +815,62 @@ function bloquearRegistros(estudiantes, estudiantes_ya_votaron) {
 // Final de votación
 // 
 app.post("/finalProcesoVotacion", (req, res) => {
-	// console.log("POST -> finalProcesoVotacion")
-	
 	// Se decide si el estudiante debe o no votar por "Representante por grado" y "Representante al Comité"
 	if( nom_sede=="CASCAJAL"  ) {
 		if( num_grupo < 300 ) {
-			num_representante_comite = -1
+			num_representante_comite = req.body.representante_comite
+			if (num_representante_comite == 1 ) {
+				nombre_representante_comite = "CARITA FELIZ"
+			} else {
+				nombre_representante_comite = "CARITA TRISTE"
+			}
+
+			nombre_representante = "No hay candidato"
 			num_representante = -1
+			nombre_personero = "No hay candidado"
+			num_personero = -1
 		} else {
 			num_representante = req.body.representante
-			nombre_representante = `${representantes[num_representante-1].est_primer_nombre} ${representantes[num_representante-1].est_segundo_nombre} ${representantes[num_representante-1].est_primer_apellido} ${representantes[num_representante-1].est_segundo_apellido}`
+			if (num_representante == 0) {
+				nombre_representante = "VOTO EN BLANCO"
+			} else {
+				nombre_representante = `${representantes[num_representante-1].est_primer_nombre} ${representantes[num_representante-1].est_segundo_nombre} ${representantes[num_representante-1].est_primer_apellido} ${representantes[num_representante-1].est_segundo_apellido}`
+			}
 		}		
 	} else {
-		num_personero = req.body.personero
-		num_representante = -1
+		if( num_grupo < 300 ) {
+			num_representante_comite = req.body.representante_comite
+			if (num_representante_comite == 1 ) {
+				nombre_representante_comite = "CARITA FELIZ"
+			} else {
+				nombre_representante_comite = "CARITA TRISTE"
+			}
+
+			nombre_representante = "No hay candidato"
+			num_representante = -1
+			nombre_personero = "No hay candidado"
+			num_personero = -1
+		} else {
+			num_representante = req.body.representante
+			if (num_representante == 0) {
+				nombre_representante = "VOTO EN BLANCO"
+			} else {
+				nombre_representante = `${representantes[num_representante-1].est_primer_nombre} ${representantes[num_representante-1].est_segundo_nombre} ${representantes[num_representante-1].est_primer_apellido} ${representantes[num_representante-1].est_segundo_apellido}`
+			}
+		}		
+		
+		// num_personero = req.body.personero		
+		// num_representante = -1
 	}
 
-	console.log(`Nombre representante comite: ${nombre_representante_comite} 
-		Numero rep comite: ${num_representante_comite}
-		Nombre personero: ${nombre_personero} 
-		Numero personero: ${num_personero}
-		Nombre representante: ${nombre_representante}
-		Numero representante: ${num_representante}`
-	)
+	console.log("Nombre representante comite:" + nombre_representante_comite)
+	console.log("Numero rep comite:" + num_representante_comite + "\n")
+
+	console.log("Nombre personero:" + nombre_personero)
+	console.log("Numero personero:" + num_personero + "\n")
+
+	console.log("Nombre representante:" + nombre_representante)
+	console.log("Numero representante:" + num_representante + "\n")
 
 	var votaciones = new Votaciones({
 	    vot_sede: nom_sede,
