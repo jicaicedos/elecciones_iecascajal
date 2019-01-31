@@ -93,17 +93,17 @@ block contenido
 					for representante_comite in representantes_comite
 						div(class="tarjeton")
 							div(class="votarPersonero")
-								form(action="/finalProcesoVotacion" method="POST")
+								form(action="/personero" method="POST")
 									input(type="submit" value=representante_comite.est_num_tarjeton name="representante_comite" class="btnVotarPersonero")
 							div(class="card" style="width: 12rem;")
-								img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_comite/"+representante_comite.est_foto alt="Foto personero")
+								img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_comite/"+representante_comite.est_foto alt="Foto representante comite")
 								div(class="card-body")
 									h5(class="card-title")= representante_comite.est_primer_nombre + " " + representante_comite.est_segundo_nombre + " " + representante_comite.est_primer_apellido + " " + representante_comite.est_segundo_apellido
 									p(class="card-text")= representante_comite.est_grado + " " + representante_comite.est_grupo
 
 					div(class="tarjeton")
 						div(class="votarPersonero")
-							form(action="/finalProcesoVotacion" method="POST")
+							form(action="/personero" method="POST")
 								input(type="submit" value="0" name="representante_comite"  class="btnVotarPersonero")
 						div(class="card" style="width: 12rem;")
 							img(class="card-img-top imagenCard" src="static/imagenes/candidatos/voto blanco.jpg" alt="Card image cap")

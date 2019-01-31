@@ -773,7 +773,7 @@ app.post("/representante", (req, res) => {
 	}).
 	exec( (error, docs) => {
 		representantes = docs
-		// nombre_representante = `${docs[num_personero-1].est_primer_nombre} ${docs[num_personero-1].est_segundo_nombre} ${docs[num_personero-1].est_primer_apellido} ${docs[num_personero-1].est_segundo_apellido}`
+		// nombre_representante = `${docs[num_personero-1].est_primer_nombre} ${docs[num_personero-1].est_segundo_nombre} ${docs[num_personero-1].est_primer_apellido} ${docs[num_personero-1].est_segundo_apellido}
 		res.render("representante", {representantes, nombre_representante, num_grado_estudiante, num_grupo})
 	})
 })
@@ -837,8 +837,8 @@ app.post("/finalProcesoVotacion", (req, res) => {
 				nombre_representante = `${representantes[num_representante-1].est_primer_nombre} ${representantes[num_representante-1].est_segundo_nombre} ${representantes[num_representante-1].est_primer_apellido} ${representantes[num_representante-1].est_segundo_apellido}`
 			}
 		}		
-	} else {
-		if( num_grupo < 300 ) {
+	} else {		// Votaciones para sedes (El Tobo, Mateo Rico,...)
+		if( num_grupo < 300 ) { 	// Votaciones para grados de: Preescolar, Primero y Segundo
 			num_representante_comite = req.body.representante_comite
 			if (num_representante_comite == 1 ) {
 				nombre_representante_comite = "CARITA FELIZ"
@@ -850,17 +850,23 @@ app.post("/finalProcesoVotacion", (req, res) => {
 			num_representante = -1
 			nombre_personero = "No hay candidado"
 			num_personero = -1
-		} else {
+			
+		} else {	// Votaciones en sedes (Tobo, Mateo Rico,...) para grados: Tercero, Cuarto y Quinto
 			num_representante = req.body.representante
+			num_personero = req.body.personero
 			if (num_representante == 0) {
 				nombre_representante = "VOTO EN BLANCO"
 			} else {
-				nombre_representante = `${representantes[num_representante-1].est_primer_nombre} ${representantes[num_representante-1].est_segundo_nombre} ${representantes[num_representante-1].est_primer_apellido} ${representantes[num_representante-1].est_segundo_apellido}`
+				if(num_personero == 0) {
+					nombre_personero = "VOTO EN BLANCO"
+				}
+				else {
+					nombre_personero = `${personeros[num_personero-1].est_primer_nombre} ${personeros[num_personero-1].est_segundo_nombre} ${personeros[num_personero-1].est_primer_apellido} ${personeros[num_personero-1].est_segundo_apellido}`
+				}			
+				nombre_representante = "No hay candidato"
+				num_representante = -1
 			}
 		}		
-		
-		// num_personero = req.body.personero		
-		// num_representante = -1
 	}
 
 	console.log("Nombre representante comite:" + nombre_representante_comite)
