@@ -175,22 +175,24 @@ app.get("/reportes", (req, res) => {
 		reporte_personeros = docs
 
 		let total_representantes_comite = 0
-		reporte_representantes_comite.forEach(function(reporte_representantes_comite){
-			total_representantes_comite+= reporte_representantes_comite.cantidad
+		reporte_representantes_comite.forEach(function(reporte_representantes_comite){			
+			if( reporte_representantes_comite._id.sede == nom_sede){
+				total_representantes_comite+= reporte_representantes_comite.cantidad				
+			} else {}			
 		})
 
 		let total_personeros = 0
-		reporte_personeros.forEach(function(reporte_personero){			
-			if (reporte_personero._id.personero != -1){
+		reporte_personeros.forEach(function(reporte_personero){
+			if (reporte_personero._id.personero != -1 && reporte_personero._id.sede == nom_sede){
 				total_personeros+= reporte_personero.cantidad
-			}
+			} else {}
 		})
 
 		let total_representantes = 0
 		reporte_representantes.forEach(function(reporte_representante){			
-			if (reporte_representante._id.representante != -1){
+			if (reporte_representante._id.representante != -1 && reporte_representante._id.sede == nom_sede){
 				total_representantes+= reporte_representante.cantidad
-			}
+			} else {}
 		})
 
 		res.render("reportes", {reporte_representantes_comite, reporte_personeros, reporte_representantes, nom_sede, total_representantes_comite, total_personeros, total_representantes } )
