@@ -28,6 +28,21 @@ footer p {
 	text-align: center;
 }
 
+h1 {
+	color: #563B7E;
+	font-weight: bold;
+}
+
+h3 {
+	color: #054857;
+	font-weight: bold;
+}
+
+h5 {
+	color: #00A9A8;
+	font-weight: bold;
+}
+
 h4, h6 {
 	color: white;
 	text-align: center;

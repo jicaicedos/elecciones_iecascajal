@@ -137,10 +137,103 @@ app.get("/", (req, res) => {
 	res.render("index")
 })
 
+
+// =============================================================================
+// Funcion que obtiene los nombres de los candidatos que recibieron votos, 
+// sin repetir
+Array.prototype.unique = function(a){
+	return function(){ 
+		return this.filter(a) 
+	}
+}(function(a,b,c){ 
+	return c.indexOf(a,b+1) < 0 
+});
+
+function get_resumen_representantes_comite(reporte_representantes_comite) {
+	let i = 0
+	var array_candidatos = []
+	reporte_representantes_comite.forEach(function(arr_unique_representante_comite) {
+		array_candidatos[i] = arr_unique_representante_comite._id.nombre_representante_comite
+		i++
+	})
+
+	array_candidatos = array_candidatos.unique()
+
+	var resumen_total_representantes_comite = []
+	var suma_votos
+	for (var k = 0; k < array_candidatos.length; k++) {			
+		suma_votos = 0
+		reporte_representantes_comite.forEach(function(candidato) {
+			if (array_candidatos[k] == candidato._id.nombre_representante_comite && 
+				array_candidatos[k] != "No hay candidato" && 
+				candidato._id.sede == nom_sede ) {
+				suma_votos += candidato.cantidad
+			}
+		})
+		resumen_total_representantes_comite[k] = [array_candidatos[k], suma_votos]
+	}
+	return resumen_total_representantes_comite
+}
+
+function get_resumen_personeros(reporte_personeros) {
+	let i = 0
+	var array_candidatos = []
+	reporte_personeros.forEach(function(arr_unique_representante_comite) {
+		array_candidatos[i] = arr_unique_representante_comite._id.nombre_personero
+		i++
+	})
+
+	array_candidatos = array_candidatos.unique()
+
+	var resumen_total_personeros = []
+	var suma_votos
+	for (var k = 0; k < array_candidatos.length; k++) {			
+		suma_votos = 0
+		reporte_personeros.forEach(function(candidato) {
+			if (array_candidatos[k] == candidato._id.nombre_personero && 
+				candidato._id.sede == nom_sede ) {
+				suma_votos += candidato.cantidad
+			}
+		})
+		if(array_candidatos[k] != "No hay candidato")
+			resumen_total_personeros[k] = [array_candidatos[k], suma_votos]
+	}
+	return resumen_total_personeros
+}
+
+function get_resumen_representantes(reporte_representantes) {
+	let i = 0
+	var array_candidatos = []
+	reporte_representantes.forEach(function(arr_unique_representante_comite) {
+		array_candidatos[i] = arr_unique_representante_comite._id.nombre_representante
+		i++
+	})
+
+	array_candidatos = array_candidatos.unique()
+
+	var resumen_total_representantes = []
+	var suma_votos
+	for (var k = 0; k < array_candidatos.length; k++) {			
+		suma_votos = 0
+		reporte_representantes.forEach(function(candidato) {
+			if (array_candidatos[k] == candidato._id.nombre_representante && 
+				candidato._id.sede == nom_sede ) {
+				suma_votos += candidato.cantidad
+			}
+		})
+		if(array_candidatos[k] != "No hay candidato")
+			resumen_total_representantes[k] = [array_candidatos[k], suma_votos]
+	}
+	return resumen_total_representantes
+}
+
 app.get("/reportes", (req, res) => {
 	let reporte_representantes_comite
 	let reporte_personeros
 	let reporte_representantes
+	let resumen_total_representantes_comite
+	let resumen_total_personeros
+	let resumen_total_representantes
 
 	Votaciones.
 	aggregate([
@@ -180,6 +273,9 @@ app.get("/reportes", (req, res) => {
 				total_representantes_comite+= reporte_representantes_comite.cantidad				
 			} else {}			
 		})
+		// =============================================================================
+		resumen_total_representantes_comite = get_resumen_representantes_comite(reporte_representantes_comite)		
+		// =============================================================================
 
 		let total_personeros = 0
 		reporte_personeros.forEach(function(reporte_personero){
@@ -187,6 +283,9 @@ app.get("/reportes", (req, res) => {
 				total_personeros+= reporte_personero.cantidad
 			} else {}
 		})
+		// =============================================================================
+		resumen_total_personeros = get_resumen_personeros(reporte_personeros)		
+		// =============================================================================
 
 		let total_representantes = 0
 		reporte_representantes.forEach(function(reporte_representante){			
@@ -194,8 +293,11 @@ app.get("/reportes", (req, res) => {
 				total_representantes+= reporte_representante.cantidad
 			} else {}
 		})
+		// =============================================================================
+		resumen_total_representantes = get_resumen_representantes(reporte_representantes)		
+		// =============================================================================
 
-		res.render("reportes", {reporte_representantes_comite, reporte_personeros, reporte_representantes, nom_sede, total_representantes_comite, total_personeros, total_representantes } )
+		res.render("reportes", {reporte_representantes_comite, resumen_total_representantes_comite, reporte_personeros, resumen_total_personeros, reporte_representantes, resumen_total_representantes, nom_sede, total_representantes_comite, total_personeros, total_representantes } )
 
 	})
 	
@@ -829,7 +931,7 @@ app.post("/finalProcesoVotacion", (req, res) => {
 
 			nombre_representante = "No hay candidato"
 			num_representante = -1
-			nombre_personero = "No hay candidado"
+			nombre_personero = "No hay candidato"
 			num_personero = -1
 		} else {
 			num_representante = req.body.representante
@@ -850,7 +952,7 @@ app.post("/finalProcesoVotacion", (req, res) => {
 
 			nombre_representante = "No hay candidato"
 			num_representante = -1
-			nombre_personero = "No hay candidado"
+			nombre_personero = "No hay candidato"
 			num_personero = -1
 			
 		} else {	// Votaciones en sedes (Tobo, Mateo Rico,...) para grados: Tercero, Cuarto y Quinto
@@ -871,14 +973,14 @@ app.post("/finalProcesoVotacion", (req, res) => {
 		}		
 	}
 
-	console.log("Nombre representante comite:" + nombre_representante_comite)
-	console.log("Numero rep comite:" + num_representante_comite + "\n")
+	// console.log("Nombre representante comite:" + nombre_representante_comite)
+	// console.log("Numero rep comite:" + num_representante_comite + "\n")
 
-	console.log("Nombre personero:" + nombre_personero)
-	console.log("Numero personero:" + num_personero + "\n")
+	// console.log("Nombre personero:" + nombre_personero)
+	// console.log("Numero personero:" + num_personero + "\n")
 
-	console.log("Nombre representante:" + nombre_representante)
-	console.log("Numero representante:" + num_representante + "\n")
+	// console.log("Nombre representante:" + nombre_representante)
+	// console.log("Numero representante:" + num_representante + "\n")
 
 	var votaciones = new Votaciones({
 	    vot_sede: nom_sede,
