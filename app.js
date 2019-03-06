@@ -142,7 +142,9 @@ Array.prototype.unique = function(a){
 	return c.indexOf(a,b+1) < 0 
 });
 
-
+// ==================================================================================
+// 
+// Resumen de votaciones por representantes: Personero, Rep Consejo Directivo y Rep Consejo Estudiantil
 
 function get_resumen(candidatos) {
 	let i = 0
@@ -154,20 +156,23 @@ function get_resumen(candidatos) {
 
 	array_candidatos = array_candidatos.unique()
 
-	var resumen_total_representantes = []
+	var resumen = []
+	var cont = 0
 	var suma_votos
+	var votacion_caritas = []
+	var cont_carita_feliz = 0
+	var cont_carita_triste = 0
 	for (var k = 0; k < array_candidatos.length; k++) {			
 		suma_votos = 0
 		candidatos.forEach(function(candidato) {
-			if (array_candidatos[k] == candidato._id.nombre && 
-				candidato._id.sede == nom_sede ) {
+			if (array_candidatos[k] == candidato._id.nombre && candidato._id.sede == nom_sede ) {
 				suma_votos += candidato.cantidad
 			}
 		})
-		if(array_candidatos[k] != "No hay candidato")
-			resumen_total_representantes[k] = [array_candidatos[k], suma_votos]
+		if(array_candidatos[k] != "No hay candidato" )
+			resumen[k] = [array_candidatos[k], suma_votos]
 	}
-	return resumen_total_representantes
+	return resumen
 }
 
 app.get("/reportes", (req, res) => {
@@ -233,12 +238,19 @@ app.get("/reportes", (req, res) => {
 		// =============================================================================
 		// Representante_Comite = "CONSEJO DIRECTIVO"
 		let total_representantes_comite = 0
-		reporte_representantes_comite.forEach(function(reporte_representantes_comite){			
-			if( reporte_representantes_comite._id.sede == nom_sede){
-				total_representantes_comite+= reporte_representantes_comite.cantidad				
-			} else {}			
+		// Cuenta votos por candidatos 
+		reporte_representantes_comite.forEach(function(rep_consejo_directivo){
+			if( rep_consejo_directivo._id.sede == nom_sede ) {
+				total_representantes_comite+= rep_consejo_directivo.cantidad
+			} else {}
 		})
 		resumen_total_representantes_comite = get_resumen(reporte_representantes_comite)
+		// Restar los votos de PREESCOLAR, PRIMERO y SEGUNDO
+		resumen_total_representantes_comite.forEach(function(candidato){
+			if( candidato[0] == "CARITA FELIZ" || candidato[0] == "CARITA TRISTE" ) {
+				total_representantes_comite -= candidato[1]
+			}
+		})
 
 		// =============================================================================
 		// Personeros
@@ -253,15 +265,25 @@ app.get("/reportes", (req, res) => {
 		// =============================================================================
 		// Representante = "CONSEJO ESTUDIANTIL"
 		let total_representantes = 0
-		reporte_representantes.forEach(function(reporte_representante){			
+		reporte_representantes.forEach(function(reporte_representante){
 			if (reporte_representante._id.representante != -1 && reporte_representante._id.sede == nom_sede){
 				total_representantes+= reporte_representante.cantidad
 			} else {}
 		})
 		resumen_total_representantes = get_resumen(reporte_representantes)		
 
-		res.render("reportes", {reporte_representantes_comite, resumen_total_representantes_comite, reporte_personeros, resumen_total_personeros, reporte_representantes, resumen_total_representantes, nom_sede, total_representantes_comite, total_personeros, total_representantes } )
-
+		res.render(
+			"reportes", 
+			{
+				reporte_representantes_comite, resumen_total_representantes_comite, 
+				reporte_personeros, resumen_total_personeros, 
+				reporte_representantes, resumen_total_representantes, 
+				nom_sede, 
+				total_representantes_comite, 
+				total_personeros, 
+				total_representantes 
+			}
+		)
 	})
 	
 })
