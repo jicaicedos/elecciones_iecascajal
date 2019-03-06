@@ -756,7 +756,7 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 	num_id_estudiante = req.body.documentoIdentidadEstudiante
 	// Obtenemos los <<Representantes comite estudiantil>> desde la base de datos
 	Candidato.
-	find({"est_tipo_candidato":"representante_comite"}).
+	find({"est_tipo_candidato":"representante_consejo_directivo"}).
 	sort({est_num_tarjeton:1}).
 	select({
 		est_anio: 1, est_secretaria: 1, est_dane_ie: 1, est_nombre_ie: 1,	
@@ -857,7 +857,7 @@ app.post("/representante", (req, res) => {
 
 	// Obtenemos los representantes desde la base de datos
 	Candidato.
-	find({"est_tipo_candidato":"representante", "est_grado":num_grado_estudiante, "est_grupo":num_grupo}).
+	find({"est_tipo_candidato":"representante_consejo_estudiantil", "est_grado":num_grado_estudiante, "est_grupo":num_grupo}).
 	sort({est_num_tarjeton:1}).
 	select({
 		est_anio: 1, est_secretaria: 1, est_dane_ie: 1, est_nombre_ie: 1,	
