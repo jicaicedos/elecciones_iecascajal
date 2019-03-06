@@ -108,23 +108,16 @@ app.post("/", (req, res) => {
 						res.render("sedeLaEsperanza")
 					} else if( docs[0].usu_sede == "CASCAJAL" ) {
 						id_docente = req.body.idUsuario
-						grados_docente
 						nombre_docente = docs[0].usu_nombre
-						if ( id_docente=="39567986" | id_docente=="36280861" ) {
-							grados_docente = 0
-						} else if ( id_docente=="1083880333" | id_docente=="83231140" ) {
+						if ( id_docente=="mesa1"  ) {
 							grados_docente = 1
-						} else if ( id_docente=="22632790" | id_docente=="36274515" ) {
+						} else if ( id_docente=="mesa2" ) {
 							grados_docente = 2
-						} else if ( id_docente=="12232229" | id_docente=="12130633" ) {
+						} else if ( id_docente=="mesa3" ) {
 							grados_docente = 3
-						} else if ( id_docente=="79685926" | id_docente=="1075221503" ) {
+						} else if ( id_docente=="mesa4" ) {
 							grados_docente = 4
-						} else if ( id_docente=="39695420" | id_docente=="36164540" ) {
-							grados_docente = 5
-						} else if ( id_docente=="93391630" | id_docente=="55183643" ) {
-							grados_docente = 6
-						}
+						} 
 						res.render("sedeIECascajal", {grados_docente, nombre_docente} )
 					} 
 				}

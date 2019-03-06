@@ -4,3 +4,10 @@ git log --pretty=format:"%h - %an, %ar : %s"
 
 git log --pretty=format:"%h - %s"
 
+MONGO DB
+
+// Eliminar base de datos
+db.dropDatabase()
+
+
+
