@@ -33,7 +33,7 @@ block contenido
 								th(class="th-candidato") Cantidad de votos
 						tbody(class="table-bordered")
 							for resumen_rep_comite in resumen_total_representantes_comite
-								tr(class="table-warning")
+								tr(class="table-info")
 									td(class="td-personero centrar")= resumen_rep_comite[0]
 									td(class="td-personero centrar")= resumen_rep_comite[1]
 					h5 Total votos por representantes del Consejo Directivo: 
@@ -69,7 +69,7 @@ block contenido
 						th(class="th-candidato") Cantidad de votos
 				tbody(class="table-bordered")
 					for resumen_personero in resumen_total_personeros
-						tr(class="table-success table-bordered")
+						tr(class="table-info table-bordered")
 							td(class="td-personero centrar")= resumen_personero[0]
 							td(class="td-personero centrar")= resumen_personero[1]
 			h5 Total votos por personero: 
@@ -105,8 +105,8 @@ block contenido
 								th(class="th-candidato") Cantidad de votos
 						tbody(class="table-bordered")
 							for resumen_representante in resumen_total_representantes
-								tr(class="table-success table-bordered")
+								tr(class="table-info table-bordered")
 									td(class="td-personero centrar")= resumen_representante[0]
 									td(class="td-personero centrar")= resumen_representante[1]
-			h5 Total votos por Representante al Consejo Estudiantil:
+			h5 Total votos por Representante al Consejo Estudiantil: 
 				span= total_representantes

@@ -915,9 +915,10 @@ app.post("/finalProcesoVotacion", (req, res) => {
 	// Se decide si el estudiante debe o no votar por "Representante por grado" y "Representante al Comité"
 	if( nom_sede=="CASCAJAL"  ) {
 		if( num_grupo < 300 ) {
-			num_representante_comite = req.body.representante_comite
+			num_representante_comite = req.body.representante_consejo_directivo
 			if (num_representante_comite == 1 ) {
 				nombre_representante_comite = "CARITA FELIZ"
+								
 			} else {
 				nombre_representante_comite = "CARITA TRISTE"
 			}
@@ -936,7 +937,7 @@ app.post("/finalProcesoVotacion", (req, res) => {
 		}		
 	} else {		// Votaciones para sedes (El Tobo, Mateo Rico,...)
 		if( num_grupo < 300 ) { 	// Votaciones para grados de: Preescolar, Primero y Segundo
-			num_representante_comite = req.body.representante_comite
+			num_representante_comite = req.body.representante_consejo_directivo
 			if (num_representante_comite == 1 ) {
 				nombre_representante_comite = "CARITA FELIZ"
 			} else {
@@ -966,14 +967,14 @@ app.post("/finalProcesoVotacion", (req, res) => {
 		}		
 	}
 
-	// console.log("Nombre representante comite:" + nombre_representante_comite)
-	// console.log("Numero rep comite:" + num_representante_comite + "\n")
+	console.log("Nombre representante comite:" + nombre_representante_comite)
+	console.log("Numero rep comite:" + num_representante_comite + "\n")
 
-	// console.log("Nombre personero:" + nombre_personero)
-	// console.log("Numero personero:" + num_personero + "\n")
+	console.log("Nombre personero:" + nombre_personero)
+	console.log("Numero personero:" + num_personero + "\n")
 
-	// console.log("Nombre representante:" + nombre_representante)
-	// console.log("Numero representante:" + num_representante + "\n")
+	console.log("Nombre representante:" + nombre_representante)
+	console.log("Numero representante:" + num_representante + "\n")
 
 	var votaciones = new Votaciones({
 	    vot_sede: nom_sede,
