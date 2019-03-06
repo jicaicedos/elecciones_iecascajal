@@ -76,7 +76,7 @@ db.candidatos.insert({
     est_num_tarjeton: 1,
     est_foto: "1 - Monica Maria Lugo Cespedes.jpg"
 });
-db.estudiantes.insert({
+db.candidatos.insert({
     est_anio: 2019,
     est_secretaria: "TIMANÁ",
     est_dane_ie:  241807000079,
@@ -165,7 +165,7 @@ db.candidatos.insert({
     est_calendario: "A",
     est_grado: "SEXTO",
     est_sector: "OFICIAL",
-    est_grupo: 602,
+    est_grupo: 601,
     est_modelo_educativo: "EDUCACIÓN TRADICIONAL",
     est_tipo_identificacion: "TI",
     est_doc: 1083882731,
@@ -191,7 +191,7 @@ db.candidatos.insert({
     est_calendario: "A",
     est_grado: "SEXTO",
     est_sector: "OFICIAL",
-    est_grupo: 602,
+    est_grupo: 601,
     est_modelo_educativo: "EDUCACIÓN TRADICIONAL",
     est_tipo_identificacion: "RC",
     est_doc: 1083881137,
@@ -217,7 +217,7 @@ db.candidatos.insert({
     est_calendario: "A",
     est_grado: "SEXTO",
     est_sector: "OFICIAL",
-    est_grupo: 601,
+    est_grupo: 602,
     est_modelo_educativo: "EDUCACIÓN TRADICIONAL",
     est_tipo_identificacion: "TI",
     est_doc: 1083880617,

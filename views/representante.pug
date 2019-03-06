@@ -10,11 +10,11 @@ block contenido
 						form(action="/finalProcesoVotacion" method="POST")
 							input(type="submit" value=representante.est_num_tarjeton name="representante" class="btnVotarPersonero")
 					div(class="card" style="width: 12rem;")
-						- var ruta = "static/imagenes/candidatos/representante/" + num_grado_estudiante + "/" + representante.est_foto
+						- var ruta = "static/imagenes/candidatos/representante_consejo_estudiantil/" + num_grado_estudiante + "/" + representante.est_foto
 						if num_grado_estudiante == "SEXTO"
-							- ruta = "static/imagenes/candidatos/representante/" + num_grado_estudiante + "/" + num_grupo + "/" + representante.est_foto
-						if num_grado_estudiante == "OCTAVO"
-							- ruta = "static/imagenes/candidatos/representante/" + num_grado_estudiante + "/" + num_grupo + "/" + representante.est_foto
+							- ruta = "static/imagenes/candidatos/representante_consejo_estudiantil/" + num_grado_estudiante + "/" + num_grupo + "/" + representante.est_foto
+						if num_grado_estudiante == "SEPTIMO"
+							- ruta = "static/imagenes/candidatos/representante_consejo_estudiantil/" + num_grado_estudiante + "/" + num_grupo + "/" + representante.est_foto
 						img(class="card-img-top imagenCard" src=ruta alt="Foto representante")
 						div(class="card-body")
 							h5(class="card-title")= representante.est_primer_nombre + " " + representante.est_primer_apellido + " " +representante.est_segundo_apellido

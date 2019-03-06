@@ -36,7 +36,7 @@ block contenido
 									form(action="/personero" method="POST")
 										input(type="submit" value=representante_comite.est_num_tarjeton name="representante_consejo_directivo" class="btnVotarPersonero")
 								div(class="card" style="width: 12rem;")
-									img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_consejo_directivo/"+representante_comite.est_foto alt="Foto Consejo Directivo")
+									img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_consejo_directivo/"+representante_comite.est_foto+"" alt="Foto Consejo Directivo")
 									div(class="card-body")
 										h5(class="card-title")= representante_comite.est_primer_nombre + " " + representante_comite.est_segundo_nombre + " " + representante_comite.est_primer_apellido + " " + representante_comite.est_segundo_apellido
 										p(class="card-text")= representante_comite.est_grado + " " + representante_comite.est_grupo
@@ -57,7 +57,7 @@ block contenido
 									form(action="/finalProcesoVotacion" method="POST")
 										input(type="submit" value=representante_comite.est_num_tarjeton name="representante_consejo_directivo" class="btnVotarPersonero")
 								div(class="card" style="width: 12rem;")
-									img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_consejo_directivo/"+representante_comite.est_foto alt="Foto Consejo Directivo")
+									img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_consejo_directivo/"+representante_comite.est_foto+"" alt="Foto Consejo Directivo")
 									div(class="card-body")
 										h5(class="card-title")= representante_comite.est_primer_nombre + " " + representante_comite.est_segundo_nombre + " " + representante_comite.est_primer_apellido + " " + representante_comite.est_segundo_apellido
 										p(class="card-text")= representante_comite.est_grado + " " + representante_comite.est_grupo
@@ -95,7 +95,7 @@ block contenido
 								form(action="/personero" method="POST")
 									input(type="submit" value=representante_comite.est_num_tarjeton name="representante_consejo_directivo" class="btnVotarPersonero")
 							div(class="card" style="width: 12rem;")
-								img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_consejo_directivo/"+representante_comite.est_foto alt="Foto representante comite")
+								img(class="card-img-top imagenCard" src="static/imagenes/candidatos/representante_consejo_directivo/"+representante_comite.est_foto+"" alt="Foto representante comite")
 								div(class="card-body")
 									h5(class="card-title")= representante_comite.est_primer_nombre + " " + representante_comite.est_segundo_nombre + " " + representante_comite.est_primer_apellido + " " + representante_comite.est_segundo_apellido
 									p(class="card-text")= representante_comite.est_grado + " " + representante_comite.est_grupo

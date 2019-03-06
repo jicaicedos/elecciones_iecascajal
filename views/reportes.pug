@@ -7,14 +7,14 @@ block contenido
 			div(class="separar")
 			div(class="row")
 				div(class="col-sm-12")
-					h3 Resultado de votaciones por Representante al Comité
+					h3 Resultado de votaciones por Representante al Consejo Directivo
 					table(class='table table-hover table-striped table-condensed table-responsive' style='width: 100%')
 						thead(class='thead-light table-bordered')
 							tr(class="centrar")
 								th(class="th-candidato") Sede
 								th(class="th-candidato") Grupo
 								th(class="th-candidato") Nombre
-								th(class="th-candidato") No. Representante Comité
+								th(class="th-candidato") No. Representante Consejo Directivo
 								th(class="th-candidato") Cantidad de votos
 						tbody(class="table-bordered")
 							for reporte_representante_comite in reporte_representantes_comite
@@ -29,14 +29,14 @@ block contenido
 					table(class='table table-hover table-striped table-responsive' style='width: 100%')
 						thead(class='thead-light table-bordered')
 							tr(class="centrar")
-								th(class="th-candidato") Representante de Comité
+								th(class="th-candidato") Representante de Consejo Directivo
 								th(class="th-candidato") Cantidad de votos
-						tbody
+						tbody(class="table-bordered")
 							for resumen_rep_comite in resumen_total_representantes_comite
 								tr(class="table-warning")
 									td(class="td-personero centrar")= resumen_rep_comite[0]
 									td(class="td-personero centrar")= resumen_rep_comite[1]
-					h5 Total votos por representantes del Comité: 
+					h5 Total votos por representantes del Consejo Directivo: 
 						span= total_representantes_comite			
 			div(class="separar")
 			div(class="separar")
@@ -44,14 +44,14 @@ block contenido
 				div(class="col-sm-12")
 					h3 Resultado de votaciones por personero
 					table(class='table table-hover table-striped table-condensed table-responsive' style='width: 100%')
-						thead(class='thead-light')
+						thead(class='thead-light table-bordered')
 							tr(class="centrar")
 								th(class="th-candidato") Sede
 								th(class="th-candidato") Grupo
 								th(class="th-candidato") Nombre
 								th(class="th-candidato") No. Personero
 								th(class="th-candidato") Cantidad de votos
-						tbody
+						tbody(class="table-bordered")
 							for reporte_personero in reporte_personeros
 								if reporte_personero._id.personero != -1
 									if reporte_personero._id.sede == nom_sede
@@ -63,11 +63,11 @@ block contenido
 											td(class="td-personero centrar")= reporte_personero.cantidad
 			//- h5 Resumen votación Personeros 
 			table(class='table table-hover table-striped table-responsive' style='width: 100%')
-				thead(class='thead-dark')
+				thead(class='thead-light table-bordered')
 					tr(class="centrar")
 						th(class="th-candidato") Personero
 						th(class="th-candidato") Cantidad de votos
-				tbody
+				tbody(class="table-bordered")
 					for resumen_personero in resumen_total_personeros
 						tr(class="table-success table-bordered")
 							td(class="td-personero centrar")= resumen_personero[0]
@@ -78,16 +78,16 @@ block contenido
 			div(class="separar")
 			div(class="row")
 				div(class="col-sm-12")
-					h3 Resultado de votaciones por representante
+					h3 Resultado de votaciones por Representante al Consejo Estudiantil
 					table(class='table table-hover table-striped table-condensed table-responsive' style='width: 100%')
-						thead(class='thead-light')
+						thead(class='thead-light table-bordered')
 							tr(class="centrar")
 								th(class="th-candidato") Sede
 								th(class="th-candidato") Grupo
 								th(class="th-candidato") Nombre
 								th(class="th-candidato") No. Representante
 								th(class="th-candidato") Cantidad de votos
-						tbody
+						tbody(class="table-bordered")
 							for reporte_representante in reporte_representantes
 								if reporte_representante._id.representante != -1
 									if reporte_representante._id.sede == nom_sede
@@ -99,14 +99,14 @@ block contenido
 											td(class="td-personero centrar")= reporte_representante.cantidad
 					//- h5 Resumen votación representantes 
 					table(class='table table-hover table-striped table-responsive' style='width: 100%')
-						thead(class='thead-dark')
+						thead(class='thead-light table-bordered')
 							tr(class="centrar")
 								th(class="th-candidato") Representante
 								th(class="th-candidato") Cantidad de votos
-						tbody
+						tbody(class="table-bordered")
 							for resumen_representante in resumen_total_representantes
 								tr(class="table-success table-bordered")
 									td(class="td-personero centrar")= resumen_representante[0]
 									td(class="td-personero centrar")= resumen_representante[1]
-			h5 Total votos por representante: 
+			h5 Total votos por Representante al Consejo Estudiantil:
 				span= total_representantes

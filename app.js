@@ -29,7 +29,7 @@ var num_representante			// Guarda el número del representante votado
 var nombre_representante 		// 
 
 var ruta_foto
-// var representantes_comite
+var representantes_consejo_directivo
 // var personeros
 // var representantes
 var ids_estudiantes_ya_votaron = []
@@ -473,7 +473,7 @@ app.post("/votarIECascajal", (req, res) => {
 	nom_sede = "CASCAJAL"
 	num_grado_estudiante = req.body.gradosIECascajal
 
-	if( num_grado_estudiante=="SEXTO A" | num_grado_estudiante=="SEXTO B" | num_grado_estudiante=="OCTAVO A" | num_grado_estudiante=="OCTAVO B" ) {
+	if( num_grado_estudiante=="SEXTO A" | num_grado_estudiante=="SEXTO B" | num_grado_estudiante=="SEPTIMO A" | num_grado_estudiante=="SEPTIMO B" ) {
 
 		if( num_grado_estudiante=="SEXTO A" ) {
 			num_grado_estudiante = num_grado_estudiante.split(" ")[0]
@@ -481,12 +481,12 @@ app.post("/votarIECascajal", (req, res) => {
 		} else if( num_grado_estudiante=="SEXTO B" ) {
 			num_grado_estudiante = num_grado_estudiante.split(" ")[0]
 			num_grupo = 602
-		} else if( num_grado_estudiante=="OCTAVO A" ) {
+		} else if( num_grado_estudiante=="SEPTIMO A" ) {
 			num_grado_estudiante = num_grado_estudiante.split(" ")[0]
-			num_grupo = 801
+			num_grupo = 701
 		} else {
 			num_grado_estudiante = num_grado_estudiante.split(" ")[0]
-			num_grupo = 802
+			num_grupo = 702
 		}
 		// num_grado_estudiante = num_grado_estudiante.split(" ")[0]
 		// num_grupo = 802
@@ -750,11 +750,11 @@ app.post("/votarSedeMateoRico", (req, res) => {
 })
 
 // ============================================================================
-// Votar por Personero
+// Votar por Representantes Consejo Directivo
 // 
-app.post("/representanteComiteEstudiantil", (req, res) => {
+app.post("/representanteConsejoDirectivo", (req, res) => {
 	num_id_estudiante = req.body.documentoIdentidadEstudiante
-	// Obtenemos los <<Representantes comite estudiantil>> desde la base de datos
+	// Obtenemos los <<Representantes Consejo Directivo>> desde la base de datos
 	Candidato.
 	find({"est_tipo_candidato":"representante_consejo_directivo"}).
 	sort({est_num_tarjeton:1}).
@@ -768,7 +768,7 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 		est_tipo_candidato: 1, est_num_tarjeton: 1, est_foto: 1
 	}).
 	exec( (error, docs) => {
-		representantes_comite = docs
+		representantes_consejo_directivo = docs
 
 		Estudiante.
 		find({"est_doc":num_id_estudiante}).
@@ -783,10 +783,10 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 			let conRepresentante
 			if( num_grupo >= 299 ) {
 				conRepresentante = 1
-				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_representante_comite, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("representanteConsejoDirectivo", {representantes_consejo_directivo, num_id_estudiante, nombre_representante_comite, nom_sede, num_grado_estudiante, conRepresentante})
 			} else {
 				conRepresentante = 0
-				res.render("representanteComiteEstudiantil", {representantes_comite, num_id_estudiante, nombre_representante_comite, nom_sede, num_grado_estudiante, conRepresentante})
+				res.render("representanteConsejoDirectivo", {representantes_consejo_directivo, num_id_estudiante, nombre_representante_comite, nom_sede, num_grado_estudiante, conRepresentante})
 			}
 		})
 	})	
@@ -799,12 +799,12 @@ app.post("/representanteComiteEstudiantil", (req, res) => {
 // 
 app.post("/personero", (req, res) => {
 	// console.log("POST -> personero")
-	num_representante_comite = req.body.representante_comite
+	num_representante_comite = req.body.representante_consejo_directivo
 
 	if( num_representante_comite == 0 ) {
 		nombre_representante_comite = "VOTO EN BLANCO"
 	} else {
-		nombre_representante_comite = `${representantes_comite[num_representante_comite-1].est_primer_nombre} ${representantes_comite[num_representante_comite-1].est_segundo_nombre} ${representantes_comite[num_representante_comite-1].est_primer_apellido} ${representantes_comite[num_representante_comite-1].est_segundo_apellido}`
+		nombre_representante_comite = `${representantes_consejo_directivo[num_representante_comite-1].est_primer_nombre} ${representantes_consejo_directivo[num_representante_comite-1].est_segundo_nombre} ${representantes_consejo_directivo[num_representante_comite-1].est_primer_apellido} ${representantes_consejo_directivo[num_representante_comite-1].est_segundo_apellido}`
 	}
 
 	// Obtenemos los personeros desde la base de datos
