@@ -238,10 +238,10 @@ app.get("/reportes", (req, res) => {
 		// =============================================================================
 		// Representante_Comite = "CONSEJO DIRECTIVO"
 		let total_representantes_comite = 0
-		// Cuenta votos por candidatos 
-		reporte_representantes_comite.forEach(function(rep_consejo_directivo){
-			if( rep_consejo_directivo._id.sede == nom_sede ) {
-				total_representantes_comite+= rep_consejo_directivo.cantidad
+		// Cuenta votos por candidatos
+		reporte_representantes_comite.forEach(function(candidato){
+			if( candidato._id.sede == nom_sede ) {
+				total_representantes_comite += candidato.cantidad
 			} else {}
 		})
 		resumen_total_representantes_comite = get_resumen(reporte_representantes_comite)
@@ -273,7 +273,7 @@ app.get("/reportes", (req, res) => {
 		resumen_total_representantes = get_resumen(reporte_representantes)		
 
 		res.render(
-			"reportes", 
+			"reportes",
 			{
 				reporte_representantes_comite, resumen_total_representantes_comite, 
 				reporte_personeros, resumen_total_personeros, 

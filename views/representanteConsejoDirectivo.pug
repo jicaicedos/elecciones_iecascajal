@@ -3,7 +3,7 @@ extends ./layoutSedes.pug
 block contenido
 	div(class="container" data-spy="scroll")
 		br
-		if num_grado_estudiante == "GRADO 0" | num_grado_estudiante == "PRIMERO" | num_grado_estudiante == "SEGUNDO" 
+		if num_grado_estudiante == "GRADO 0" || num_grado_estudiante == "PRIMERO" || num_grado_estudiante == "SEGUNDO"
 			div(class="row justify-content-center")
 				div(class="tarjeton")
 					div(class="votarPersonero")

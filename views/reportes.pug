@@ -4,9 +4,41 @@ block contenido
 	div(class="container justify-content-center")
 		div(class="col-sm-12")
 			//- h1= "Reporte de votación sede " + nom_sede
-			div(class="separar")
+			//- div(class="separar")
 			div(class="row")
 				div(class="col-sm-12")
+					h3 Votaciones PREESCOLAR, PRIMERO y SEGUNDO
+					table(class='table table-hover table-striped table-condensed table-responsive' style='width: 100%')
+						thead(class='thead-light table-bordered')
+							tr(class="centrar")
+								th(class="th-candidato") Sede
+								th(class="th-candidato") Grupo
+								th(class="th-candidato") Nombre
+								th(class="th-candidato") No. Representante Consejo Directivo
+								th(class="th-candidato") Cantidad de votos
+						tbody(class="table-bordered")
+							for reporte_representante_comite in reporte_representantes_comite
+								if reporte_representante_comite._id.nombre == "CARITA FELIZ" || reporte_representante_comite._id.nombre == "CARITA TRISTE"
+									if reporte_representante_comite._id.sede == nom_sede
+										tr
+											td(class="td-personero centrar")= reporte_representante_comite._id.sede
+											td(class="td-personero centrar")= reporte_representante_comite._id.grupo
+											td(class="td-personero centrar")= reporte_representante_comite._id.nombre
+											td(class="td-personero centrar")= reporte_representante_comite._id.representante_comite
+											td(class="td-personero centrar")= reporte_representante_comite.cantidad
+					table(class='table table-hover table-striped table-responsive' style='width: 100%')
+						thead(class='thead-light table-bordered')
+							tr(class="centrar")
+								th(class="th-candidato") Preescolar Primero Segundo
+								th(class="th-candidato") Cantidad de votos
+						tbody(class="table-bordered")
+							for resumen_rep_comite in resumen_total_representantes_comite
+								if resumen_rep_comite[0] == "CARITA FELIZ" || resumen_rep_comite[0] == "CARITA TRISTE"
+									tr(class="table-info")
+										td(class="td-personero centrar")= resumen_rep_comite[0]
+										td(class="td-personero centrar")= resumen_rep_comite[1]
+					div(class="separar")
+					div(class="separar")
 					h3 Resultado de votaciones por Representante al Consejo Directivo
 					table(class='table table-hover table-striped table-condensed table-responsive' style='width: 100%')
 						thead(class='thead-light table-bordered')
@@ -18,7 +50,7 @@ block contenido
 								th(class="th-candidato") Cantidad de votos
 						tbody(class="table-bordered")
 							for reporte_representante_comite in reporte_representantes_comite
-								if reporte_representante_comite._id.representante_comite != -1
+								if reporte_representante_comite._id.representante_comite != -1 && reporte_representante_comite._id.nombre != "CARITA FELIZ" && reporte_representante_comite._id.nombre != "CARITA TRISTE"
 									if reporte_representante_comite._id.sede == nom_sede
 										tr
 											td(class="td-personero centrar")= reporte_representante_comite._id.sede
@@ -33,13 +65,12 @@ block contenido
 								th(class="th-candidato") Cantidad de votos
 						tbody(class="table-bordered")
 							for resumen_rep_comite in resumen_total_representantes_comite
-								tr(class="table-info")
-									td(class="td-personero centrar")= resumen_rep_comite[0]
-									td(class="td-personero centrar")= resumen_rep_comite[1]
+								if resumen_rep_comite[0] != "CARITA FELIZ" && resumen_rep_comite[0] != "CARITA TRISTE"
+									tr(class="table-info")
+										td(class="td-personero centrar")= resumen_rep_comite[0]
+										td(class="td-personero centrar")= resumen_rep_comite[1]
 					h5 Total votos por representantes del Consejo Directivo: 
 						span= total_representantes_comite
-					p 
-						strong >> NOTA No se cuentan las votaciones de grados PREESCOLAR, PRIMERO Y SEGUNDO			
 			div(class="separar")
 			div(class="separar")
 			div(class="row")
