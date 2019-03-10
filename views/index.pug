@@ -9,9 +9,11 @@ block contenido
 				input(type="password" class="form-control" name="claveUsuario" placeholder="Contraseña")
 			div(class="col-auto")
 				input(type="submit" value="Inciar sesión" class="btn btn-primary")
+	if ( mensaje != "" )
+		p(class="clave_erronea table-warning")= mensaje
 	div(class='container')
 		div(class='col-sm-12')
-			div(class="separar")
+			//- div(class="separar")
 			h3(class="centrar") Bienvenido a las votaciones Institución Educativa Cascajal
 			div(class="separar")
 			div(class="row")

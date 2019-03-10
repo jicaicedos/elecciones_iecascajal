@@ -85,7 +85,7 @@ app.post("/", (req, res) => {
 	exec( (error, docs) => {
 		let mensaje
 		if( docs.length==0 ) {
-			mensaje = "Usuario o contraseña no coinciden"
+			mensaje = "Usuario o contraseña son incorrectas"
 			res.render("index", {mensaje})
 		} else {
 			if( docs[0].usu_rol=="ADMINISTRADOR" ) {				
@@ -127,7 +127,8 @@ app.post("/", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-	res.render("index")
+	let mensaje = ""
+	res.render("index",{mensaje})
 })
 
 
@@ -466,8 +467,10 @@ app.post("/votarIECascajal", (req, res) => {
 	nom_sede = "CASCAJAL"
 	num_grado_estudiante = req.body.gradosIECascajal
 
-	if( num_grado_estudiante=="SEXTO A" | num_grado_estudiante=="SEXTO B" | num_grado_estudiante=="SEPTIMO A" | num_grado_estudiante=="SEPTIMO B" ) {
-
+	if( num_grado_estudiante=="SEXTO A" | num_grado_estudiante=="SEXTO B" | 
+		num_grado_estudiante=="SEPTIMO A" | num_grado_estudiante=="SEPTIMO B" 
+		) 
+	{
 		if( num_grado_estudiante=="SEXTO A" ) {
 			num_grado_estudiante = num_grado_estudiante.split(" ")[0]
 			num_grupo = 601

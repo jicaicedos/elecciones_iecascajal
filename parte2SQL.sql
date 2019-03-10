@@ -75,7 +75,8 @@ db.usuarios.insert({
 
 });
 
--- Sexto-Uno 6-1, Sexto Dos 6-2, Septimo Uno 7-1, Septimo Dos 7-2
+-- Sexto-Uno 6-1, Sexto Dos 6-2, 
+-- Septimo Uno 7-1, Septimo Dos 7-2
 db.usuarios.insert({
     usu_ID : "mesa3",
     usu_contraseña: "mesa3",
