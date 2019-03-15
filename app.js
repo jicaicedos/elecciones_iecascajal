@@ -109,15 +109,15 @@ app.post("/", (req, res) => {
 					} else if( docs[0].usu_sede == "CASCAJAL" ) {
 						id_docente = req.body.idUsuario
 						nombre_docente = docs[0].usu_nombre
-						if ( id_docente=="mesa1"  ) {
+						if( id_docente == "39567986" || id_docente == "7731901" ) {
 							grados_docente = 1
-						} else if ( id_docente=="mesa2" ) {
+						} else if ( id_docente == "1083895325" || id_docente == "1081731044" ) {
 							grados_docente = 2
-						} else if ( id_docente=="mesa3" ) {
+						} else if ( id_docente == "83231140" || id_docente == "26529241" ) {
 							grados_docente = 3
-						} else if ( id_docente=="mesa4" ) {
+						} else if ( id_docente == "40079274" || id_docente == "1075271122" ) {
 							grados_docente = 4
-						} 
+						}
 						res.render("sedeIECascajal", {grados_docente, nombre_docente} )
 					} 
 				}
