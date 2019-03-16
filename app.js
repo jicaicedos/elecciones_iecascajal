@@ -84,6 +84,7 @@ app.post("/", (req, res) => {
 	select( {usu_nombre:1, usu_sede:1, usu_rol:1}).
 	exec( (error, docs) => {
 		let mensaje
+		nombre_docente = docs[0].usu_nombre
 		if( docs.length==0 ) {
 			mensaje = "Usuario o contraseña son incorrectas"
 			res.render("index", {mensaje})
@@ -94,21 +95,19 @@ app.post("/", (req, res) => {
 				if( docs[0].usu_rol == "JURADO" ) {
 					nom_sede = docs[0].usu_sede
 					if( docs[0].usu_sede == "EL TOBO" ) {
-						console.log("\nBienvenidos a la sede: " + docs[0].usu_sede)
-						res.render("sedeElTobo")
+						res.render("sedeElTobo", {nombre_docente})
 					} else if( docs[0].usu_sede == "LA PIRAGUA" ) {
-						res.render("sedeLaPiragua")
+						res.render("sedeLaPiragua", {nombre_docente})
 					} else if( docs[0].usu_sede == "MATEO RICO" ) {
-						res.render("sedeMateoRico")
+						res.render("sedeMateoRico", {nombre_docente})
 					} else if( docs[0].usu_sede == "PAQUIES" ) {
-						res.render("sedePaquies")
+						res.render("sedePaquies", {nombre_docente})
 					} else if( docs[0].usu_sede == "LA FLORIDA" ) {
-						res.render("sedeLaFlorida")
+						res.render("sedeLaFlorida", {nombre_docente})
 					} else if( docs[0].usu_sede == "LA ESPERANZA" ) {
-						res.render("sedeLaEsperanza")
+						res.render("sedeLaEsperanza", {nombre_docente})
 					} else if( docs[0].usu_sede == "CASCAJAL" ) {
 						id_docente = req.body.idUsuario
-						nombre_docente = docs[0].usu_nombre
 						if( id_docente == "39567986" || id_docente == "7731901" ) {
 							grados_docente = 1
 						} else if ( id_docente == "1083895325" || id_docente == "1081731044" ) {

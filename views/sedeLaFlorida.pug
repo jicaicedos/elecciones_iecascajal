@@ -6,7 +6,9 @@ block contenido
 			div(class="tab-pane fade show" id="list-sede1" role="tabpanel" aria-labelledby="list-sede1-list")  
 				h1(class="centrar") Bienvenido a las votaciones Sede La Florida
 				div(class="separar")
-				h3 Seleccione un grado
+				h3= "Nombre docente: " + nombre_docente
+				div(class="separar")
+				h5 Seleccione un grado
 				div(class="separar")
 			form(action="/votarSedeLaFlorida" method="POST")
 				div(class="row")
