@@ -1,51 +1,3 @@
--- Caritas -> emoticones
-db.estudiantes.insert({
-    est_anio: 2018,
-    est_secretaria: "TIMANÁ",
-    est_dane_ie: 241807000079,
-    est_nombre_ie: "IE CASCAJAL",
-    est_dane_sede: 24180700007901,
-    est_nombre_sede: "CASCAJAL",
-    est_jornada: "COMPLETA",
-    est_calendario: "A",
-    est_grado: "GRADO-0-PRIMERO-SEGUNDO",
-    est_sector: "OFICIAL",
-    est_grupo: 1,
-    est_modelo_educativo: "POST PRIMARIA",
-    est_tipo_identificacion: "TI",
-    est_doc: 11,
-    est_primer_apellido: "FELIZ",
-    est_segundo_apellido: "",
-    est_primer_nombre: "CARITA",
-    est_segundo_nombre: "",
-    est_estado: "MATRICULADO",
-    est_matricula_contratada: "N",
-    est_fuente_recursos: "SGP"
-});
-db.estudiantes.insert({
-    est_anio: 2018,
-    est_secretaria: "TIMANÁ",
-    est_dane_ie: 241807000079,
-    est_nombre_ie: "IE CASCAJAL",
-    est_dane_sede: 24180700007901,
-    est_nombre_sede: "CASCAJAL",
-    est_jornada: "COMPLETA",
-    est_calendario: "A",
-    est_grado: "GRADO-0-PRIMERO-SEGUNDO",
-    est_sector: "OFICIAL",
-    est_grupo: 1,
-    est_modelo_educativo: "POST PRIMARIA",
-    est_tipo_identificacion: "TI",
-    est_doc: 12,
-    est_primer_apellido: "TRISTE",
-    est_segundo_apellido: "",
-    est_primer_nombre: "CARITA",
-    est_segundo_nombre: "",
-    est_estado: "MATRICULADO",
-    est_matricula_contratada: "N",
-    est_fuente_recursos: "SGP"
-});
-
 db.usuarios.insert({
     usu_ID : "Administrador",
     usu_contraseña: "admin",
@@ -91,9 +43,9 @@ db.usuarios.insert({
 -- Sexto-Uno 6-1, Sexto Dos 6-2, 
 -- Septimo Uno 7-1, Septimo Dos 7-2
 db.usuarios.insert({
-    usu_ID : "83231140",
-    usu_contraseña: "83231140",
-    usu_nombre: "JOSE ALIRIO VALDERRAMA",
+    usu_ID : "123456",
+    usu_contraseña: "123456",
+    usu_nombre: "CARLOS JAVIER LOSADA CUELLAR",
     usu_sede: "CASCAJAL",
     usu_rol: "JURADO"
 });

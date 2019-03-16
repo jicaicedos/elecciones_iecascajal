@@ -113,7 +113,7 @@ app.post("/", (req, res) => {
 							grados_docente = 1
 						} else if ( id_docente == "1083895325" || id_docente == "1081731044" ) {
 							grados_docente = 2
-						} else if ( id_docente == "83231140" || id_docente == "26529241" ) {
+						} else if ( id_docente == "123456" || id_docente == "26529241" ) {
 							grados_docente = 3
 						} else if ( id_docente == "40079274" || id_docente == "1075271122" ) {
 							grados_docente = 4

@@ -4,7 +4,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-mongoose.connect('mongodb://localhost/sede')
+mongoose.connect('mongodb://localhost/dbvotacionescascajal')
 
 var sede_schema = new Schema ({
 	sede_ID: {type: Number, required: true},

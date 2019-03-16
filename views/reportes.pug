@@ -1,4 +1,4 @@
-extends ./layoutSedes.pug
+extends ./layoutAdministrador.pug
 
 block contenido
 	div(class="container justify-content-center")
@@ -63,7 +63,7 @@ block contenido
 								th(class="th-candidato") Cantidad de votos
 						tbody(class="table-bordered")
 							for resumen_rep_comite in resumen_total_representantes_comite
-								if resumen_rep_comite[0] != "CARITA FELIZ" && resumen_rep_comite[0] != "CARITA TRISTE"
+								if (resumen_rep_comite[0] != "CARITA FELIZ" && resumen_rep_comite[0] != "CARITA TRISTE")
 									tr(class="table-info")
 										td(class="td-personero centrar")= resumen_rep_comite[0]
 										td(class="td-personero centrar")= resumen_rep_comite[1]
