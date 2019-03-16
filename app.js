@@ -960,15 +960,6 @@ app.post("/finalProcesoVotacion", (req, res) => {
 		}		
 	}
 
-	// console.log("Nombre representante comite:" + nombre_representante_comite)
-	// console.log("Numero rep comite:" + num_representante_comite + "\n")
-
-	// console.log("Nombre personero:" + nombre_personero)
-	// console.log("Numero personero:" + num_personero + "\n")
-
-	// console.log("Nombre representante:" + nombre_representante)
-	// console.log("Numero representante:" + num_representante + "\n")
-
 	var votaciones = new Votaciones({
 	    vot_sede: nom_sede,
 	    vot_grado: num_grado_estudiante,
